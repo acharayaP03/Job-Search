@@ -1,7 +1,5 @@
-const fruits = ["bananas", "apples", 'oranges']
-const vegetables = ["cucumber", 'Radish']
+export const everOrOdd = (number) => {
+    return number % 2 === 0 ? "Even number" : "Odd number";
+}
 
-
-const mergedArr = [...fruits, ...vegetables]
-
-console.log(mergedArr);
+export const multiply = (num1, num2) =>  num1 * num2;
