@@ -7,5 +7,6 @@
   "trailingComma": "none",
   "bracketSpacing": false,
   "editorconfig": true,
-  "jsxSingleQuote": true
+  "jsxSingleQuote": true,
+  "htmlWhitespaceSensitivity": "strict",
 }
