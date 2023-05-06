@@ -14,17 +14,27 @@
             </li>
           </ul>
         </nav>
+        <div class="ml-auto flex h-full items-center">
+          <profile-image v-if="isLoggedin" />
+          <action-button v-else @click="loginUser"/>
+        </div>
       </div>
-
     </div>
   </header>
 </template>
 
 <script>
+import ActionButton from "@/components/ActionButton.vue";
+import ProfileImage from "@/components/ProfileImage.vue";
 export default {
   name: "MainNav",
+  components: {
+    ActionButton,
+    ProfileImage
+  },
   data() {
     return {
+      isLoggedin: false,
       company: "Trishten Tech",
       author: {
         firstName: 'Trishten',
@@ -39,6 +49,11 @@ export default {
           "Students",
           "Jobs"
       ]
+    }
+  },
+  methods:{
+    loginUser() {
+      this.isLoggedin = true
     }
   }
 }
