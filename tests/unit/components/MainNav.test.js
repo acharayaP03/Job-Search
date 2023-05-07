@@ -29,7 +29,7 @@ describe('MainNav', () => {
       it("displays user profile picture", async () => {
           render(MainNav);
           let profileImage = screen.queryByRole('img', {
-              name: /Porfile Image/i
+              name: /Profile Image/i
           });
 
           expect(profileImage).not.toBeInTheDocument();
@@ -40,7 +40,7 @@ describe('MainNav', () => {
           await userEvent.click(loginButton)
 
           profileImage = screen.getByRole('img', {
-              name: /Porfile Image/i
+              name: /Profile Image/i
           });
 
           expect(profileImage).toBeInTheDocument();
