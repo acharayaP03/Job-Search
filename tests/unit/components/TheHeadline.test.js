@@ -1,6 +1,7 @@
 import { render, screen} from "@testing-library/vue";
 
 import TheHeadline from "../../../src/components/TheHeadline.vue";
+import {nextTick} from "vue";
 
 
 describe("TheHeadline", () => {
@@ -31,5 +32,34 @@ describe("TheHeadline", () => {
 
         expect(mock).toHaveBeenCalled()
         vi.useRealTimers();
-    })
+    });
+
+    it("swaps action verb after interval", async () => {
+        vi.useFakeTimers();
+        render(TheHeadline);
+
+        // force processes to next timer ignoring the original setInterval in the component
+        vi.advanceTimersToNextTimer();
+
+        // this will await till the setInterval proceed to next interval
+        await nextTick();
+        const actionPhrase = screen.getByRole("heading", {
+            name: /create for everyone/i
+        });
+
+        expect(actionPhrase).toBeInTheDocument()
+        vi.useRealTimers();
+    });
+
+    it("removes interval when component disappears", () => {
+        vi.useFakeTimers()
+        const clearInterval = vi.fn();
+        vi.stubGlobal("clearInterval", clearInterval);
+
+        const { unmount } = render(TheHeadline);
+        unmount();
+        expect(clearInterval).toHaveBeenCalled();
+        vi.unstubAllGlobals();
+        vi.useRealTimers()
+    });
 })
