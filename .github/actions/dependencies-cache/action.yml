@@ -1,8 +1,8 @@
 name: 'Get Code and Cache Dependencies'
-description: 'Get dependencies (via npm) and cahce then if necessary'
+description: 'Get dependencies (via npm) and cache then if necessary'
 inputs:
   caching:
-    description: 'Whether to cahce dependencies or not'
+    description: 'Whether to cache dependencies or not'
     required: false
     default: 'true'
 outputs:
@@ -19,14 +19,14 @@ runs:
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-          - name: Install Node js
-            uses: actions/setup-node@v3
-            with:
-              node-version: 18
-          - name: Install dependencies
-            id: install
-            if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
-            run: |
-              npm ci
-              echo "cache='${{ inputs.caching }}'" >> $GITHUB_OUTPUT
-            shell: bash
+    - name: Install Node js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install dependencies
+      id: install
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
+      run: |
+        npm ci
+        echo "cache='${{ inputs.caching }}'" >> $GITHUB_OUTPUT
+      shell: bash
