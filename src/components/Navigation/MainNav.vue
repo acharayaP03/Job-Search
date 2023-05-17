@@ -15,18 +15,18 @@
           </ul>
         </nav>
         <div class="ml-auto flex h-full items-center">
-          <profile-image v-if="isLoggedin" />
-          <action-button v-else text="Sign in" primary @click="loginUser"/>
+          <profile-image v-if="isLoggedIn" />
+          <action-button v-else text="Sign in" button-type="primary" @click="loginUser"/>
         </div>
       </div>
-      <the-sub-navigation v-if="isLoggedin"/>
+      <the-sub-navigation v-if="isLoggedIn"/>
     </div>
   </header>
 </template>
 
 <script>
-import ActionButton from "@/components/ActionButton.vue";
-import ProfileImage from "@/components/ProfileImage.vue";
+import ActionButton from "../ActionButton.vue";
+import ProfileImage from "./ProfileImage.vue";
 import TheSubNavigation from "./TheSubNavigation.vue";
 export default {
   name: "MainNav",
@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      isLoggedin: false,
+      isLoggedIn: false,
       company: "Trishten Tech",
       author: {
         firstName: 'Trishten',
