@@ -10,12 +10,12 @@
           reactive data in the methods.
           we can directly assign like below. this is called inline expression
         -->
-        <text-input placeholder="Software engineer" @handle-input="role = $event"/>
+        <text-input placeholder="Software engineer" v-model="role"/>
       </div>
       <span class="flex items-center h-full border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3">in</span>
       <div class="flex h-full flex-1 relative items-center pl-3">
         <label class="absolute left-0 -top-10">Where?</label>
-        <text-input  placeholder="Sydney" @handle-input="location = $event"/>
+        <text-input v-model="location" placeholder="Sydney" />
       </div>
     </div>
 
