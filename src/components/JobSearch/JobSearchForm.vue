@@ -4,12 +4,14 @@
     <div class="flex flex-1 flex-nowrap h-full text-base font-light">
       <div class="flex h-full flex-1 relative items-center pr-3">
         <label class="absolute left-0 -top-10">Role</label>
-        <input type="text" placeholder="Software engineer" class="w-full text-lg font-normal focus:outline-none" v-model="role">
+<!--        <input type="text" placeholder="Software engineer" class="w-full text-lg font-normal focus:outline-none" v-model="role">-->
+        <text-input placeholder="Software engineer" @handle-input="updateRole"/>
       </div>
       <span class="flex items-center h-full border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3">in</span>
       <div class="flex h-full flex-1 relative items-center pl-3">
         <label class="absolute left-0 -top-10">Where?</label>
-        <input type="text" placeholder="Sydney" class="w-full text-lg font-normal focus:outline-none" v-model="location">
+<!--        <input type="text" placeholder="Sydney" class="w-full text-lg font-normal focus:outline-none" v-model="location">-->
+        <text-input  placeholder="Sydney" @handle-input="updateLocation"/>
       </div>
     </div>
 
@@ -20,13 +22,22 @@
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import ActionButton from "@/components/Shared/ActionButton.vue";
+import TextInput from "@/components/Shared/TextInput.vue";
 export default {
   name: "JobSearchForm",
-  components: {FontAwesomeIcon, ActionButton},
+  components: {FontAwesomeIcon, ActionButton, TextInput},
   data() {
     return {
       role: '',
       location: ''
+    }
+  },
+  methods: {
+    updateRole(emittedRole){
+      this.role = emittedRole
+    },
+    updateLocation(emittedLocation){
+      this.location = emittedLocation;
     }
   }
 }
