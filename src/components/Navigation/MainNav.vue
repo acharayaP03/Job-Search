@@ -8,9 +8,9 @@
             <li
                 class="ml-9 h-full first:ml-0"
                 v-for="menu in menuItems"
-                :key="menu"
+                :key="menu.text"
             >
-              <a href="" class="flex h-full items-center py-2.5">{{ menu }}</a>
+              <router-link :to="menu.url" class="flex h-full items-center py-2.5">{{ menu.text }}</router-link>
             </li>
           </ul>
         </nav>
@@ -44,12 +44,12 @@ export default {
       },
       url: 'https://careers.gooogle.com',
       menuItems: [
-          "Teams",
-          "Locations",
-          "Life at Trishten Tech",
-          "How we hire",
-          "Students",
-          "Jobs"
+        {text: "Teams", url: '/' },
+        {text: "Locations", url: '/'},
+        {text: "Life at Trishten Tech", url: '/'},
+        {text: "How we hire", url: '/'},
+        {text:  "Students", url: '/'},
+        {text:"Jobs", url: '/jobs/results'}
       ]
     }
   },
