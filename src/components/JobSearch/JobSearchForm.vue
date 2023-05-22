@@ -19,7 +19,7 @@
 
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import ActionButton from "./ActionButton.vue";
+import ActionButton from "@/components/Shared/ActionButton.vue";
 export default {
   name: "JobSearchForm",
   components: {FontAwesomeIcon, ActionButton},
