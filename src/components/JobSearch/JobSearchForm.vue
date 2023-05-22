@@ -4,14 +4,18 @@
     <div class="flex flex-1 flex-nowrap h-full text-base font-light">
       <div class="flex h-full flex-1 relative items-center pr-3">
         <label class="absolute left-0 -top-10">Role</label>
-<!--        <input type="text" placeholder="Software engineer" class="w-full text-lg font-normal focus:outline-none" v-model="role">-->
-        <text-input placeholder="Software engineer" @handle-input="updateRole"/>
+        <!--
+          when child TextInput component emits handleInput with event, the pay load will be passed to
+          parent component, where we can capture directly on $event rather than declaring methods and assigning it to
+          reactive data in the methods.
+          we can directly assign like below. this is called inline expression
+        -->
+        <text-input placeholder="Software engineer" @handle-input="role = $event"/>
       </div>
       <span class="flex items-center h-full border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3">in</span>
       <div class="flex h-full flex-1 relative items-center pl-3">
         <label class="absolute left-0 -top-10">Where?</label>
-<!--        <input type="text" placeholder="Sydney" class="w-full text-lg font-normal focus:outline-none" v-model="location">-->
-        <text-input  placeholder="Sydney" @handle-input="updateLocation"/>
+        <text-input  placeholder="Sydney" @handle-input="location = $event"/>
       </div>
     </div>
 
