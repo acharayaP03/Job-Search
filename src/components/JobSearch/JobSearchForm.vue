@@ -1,5 +1,5 @@
 <template>
-  <form class="flex h-12 w-full items-center rounded-3xl border border-solid border-2 border-brand-gray-3">
+  <form class="flex h-12 w-full items-center rounded-3xl border border-solid border-2 border-brand-gray-3" @submit.prevent="searchJobs">
     <font-awesome-icon :icon="['fas', 'search']" class="ml-4 mr-3"></font-awesome-icon>
     <div class="flex flex-1 flex-nowrap h-full text-base font-light">
       <div class="flex h-full flex-1 relative items-center pr-3">
@@ -37,11 +37,14 @@ export default {
     }
   },
   methods: {
-    updateRole(emittedRole){
-      this.role = emittedRole
-    },
-    updateLocation(emittedLocation){
-      this.location = emittedLocation;
+    searchJobs(){
+      this.$router.push({
+        name: 'JobResults',
+        query: {
+          role: this.role,
+          location: this.location
+        }
+      })
     }
   }
 }
