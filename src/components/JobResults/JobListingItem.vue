@@ -6,7 +6,10 @@
         <div class="flex flex-row align-middle">
           <div class="mr-5">{{ organization }}</div>
           <div>
-            <span class="mr-2">{{ getLocations }}</span>
+            <ul>
+              <li class="mr-5 inline-block" v-for="location in job.locations" :key="location"><span>{{ location }}</span></li>
+            </ul>
+
           </div>
         </div>
       </div>
@@ -48,9 +51,6 @@ export default {
     organization() {
       return this.job.organization
     },
-    getLocations() {
-      return this.job.locations.join(', ')
-    }
   }
 }
 </script>
