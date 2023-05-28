@@ -1,12 +1,12 @@
 <template>
   <li class="mb-7">
-    <router-link to="/jobs/results/1" class="mx-auto block rounded border border-solid border-brand-gray-2 bg-white hover:shadow-gray">
+    <router-link :to="getJobUrl" class="mx-auto block rounded border border-solid border-brand-gray-2 bg-white hover:shadow-gray">
       <div class="mx-8 border-b border-solid border-brand-gray-2 pt-5 pb-2">
-        <h2 class="mb-2 text-2xl">Technical Program Manager, Perception, Augmented Reality</h2>
+        <h2 class="mb-2 text-2xl">{{ title }}</h2>
         <div class="flex flex-row align-middle">
-          <div class="mr-5">Trish Tech</div>
+          <div class="mr-5">{{ organization }}</div>
           <div>
-            <span>North Sydney, NSW, 2000</span>
+            <span class="mr-2">{{ getLocations }}</span>
           </div>
         </div>
       </div>
@@ -15,14 +15,12 @@
           <h3 class="mt-1 mb-2">Qualification:</h3>
           <div>
             <ul class="list-disc pl-8">
-              <li>Bachelor's degree or equivalent practical experience</li>
-              <li>5 years of experience in program management.</li>
-              <li>Experience analyzing data through quering database (e.g., SQL) using spreadsheet software, and creating statistical models.</li>
+              <li v-for="qualification in job.preferredQualifications" :key="qualification">{{ qualification }}</li>
             </ul>
           </div>
         </div>
         <div class="mt-2 text-center">
-          <router-link to="/jobs/results/1" class="text-brand-blue-1">
+          <router-link :to="getJobUrl" class="text-brand-blue-1">
             Expand
           </router-link>
         </div>
@@ -33,6 +31,26 @@
 
 <script>
 export default {
-  name: "JobListingItem"
+  name: "JobListingItem",
+  props: {
+    job: {
+      type: Object,
+      required: true
+    }
+  },
+  computed:{
+    getJobUrl() {
+      return `/jobs/results/${this.job.id}`
+    },
+    title() {
+      return this.job.title
+    },
+    organization() {
+      return this.job.organization
+    },
+    getLocations() {
+      return this.job.locations.join(', ')
+    }
+  }
 }
 </script>
