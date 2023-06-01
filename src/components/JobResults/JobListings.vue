@@ -3,6 +3,11 @@
     <ol>
       <job-listing-item v-for="job in displaySlicedJobs" :key="job.id" :job="job"/>
     </ol>
+    <div class="mx-auto mt-8">
+      <div class="flex flex-row flex-nowrap">
+        <p class="flex-grow text-sm">Page {{ currentPage }}</p>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -20,8 +25,11 @@ export default {
     }
   },
   computed:{
+    currentPage() {
+        return +(this.$route.query.page || "1");
+    },
     displaySlicedJobs(){
-      const pageNumber = +(this.$route.query.page || "1");
+      const pageNumber = this.currentPage;
       const firstJobIndex = (pageNumber - 1 ) * 10;
       const lastJobIndex = pageNumber * 10;
 
