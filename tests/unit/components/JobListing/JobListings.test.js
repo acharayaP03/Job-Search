@@ -34,7 +34,7 @@ describe("JobListings", () => {
         const $route = createRoute()
         renderJobListings($route)
 
-        expect(axios.get).toHaveBeenCalledWith("http://localhost:3000/jobs")
+        expect(axios.get).toHaveBeenCalledWith(`${import.meta.env.VITE_APP_API_URL}/jobs`)
     })
 
     it("Creates a job listing for every job", async () => {
