@@ -17,4 +17,4 @@ const pinia = createPinia();
 
 library.add(faSearch);
 
-createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
+createApp(App).use(pinia).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
