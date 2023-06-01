@@ -1,7 +1,7 @@
 <template>
   <main class="flex-auto bg-brand-gray-2 p-8">
     <ol>
-      <job-listing-item v-for="job in jobs" :key="job.id" :job="job"/>
+      <job-listing-item v-for="job in displaySlicedJobs" :key="job.id" :job="job"/>
     </ol>
   </main>
 </template>
@@ -19,8 +19,16 @@ export default {
       jobs: []
     }
   },
-  async mounted() {
+  computed:{
+    displaySlicedJobs(){
+      const pageNumber = +(this.$route.query.page || "1");
+      const firstJobIndex = (pageNumber - 1 ) * 10;
+      const lastJobIndex = pageNumber * 10;
 
+      return this.jobs.slice(firstJobIndex, lastJobIndex)
+    }
+  },
+  async mounted() {
     try{
       const results = await axios.get('http://localhost:3000/jobs');
       this.jobs = results.data
