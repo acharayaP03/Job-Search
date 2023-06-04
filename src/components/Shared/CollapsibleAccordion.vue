@@ -1,7 +1,7 @@
 <template>
   <div class="border-b border-solid border-brand-gray-2 py-5">
     <div class="flex cursor-pointer flex-wrap items-center justify-between" @click="open">
-      <h3 class="text-base font-semibold">Organizations</h3>
+      <h3 class="text-base font-semibold">{{ heading }}</h3>
       <font-awesome-icon :icon="caretIcon"/>
     </div>
     <div v-if="isOpen" class="mt-5 w-full">
@@ -17,6 +17,12 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 export default {
   name: "CollapsibleAccordion",
   components: {FontAwesomeIcon},
+  props:{
+    heading: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       isOpen: false
