@@ -1,12 +1,9 @@
 import { render, screen } from "@testing-library/vue";
-import axios from "axios";
+
+import { createTestingPinia } from "@pinia/testing";
 import { RouterLinkStub } from "@vue/test-utils";
 import {JobListings} from "../../../../src/components/JobResults";
-
-/**
- * @vi mock will import all the available methods from axios to mock any request
- */
-vi.mock("axios");
+import { useJobsStore } from "../../../../src/stores/jobs";
 
 describe("JobListings", () => {
     const createRoute = (queryParams = {}) => ({
@@ -17,8 +14,10 @@ describe("JobListings", () => {
     })
 
     const renderJobListings = ($route) => {
+        const pinia = createTestingPinia();
         render(JobListings, {
             global: {
+                plugins: [pinia],
                 stubs: {
                     RouterLink: RouterLinkStub
                 },
@@ -30,17 +29,19 @@ describe("JobListings", () => {
     }
 
     it("fetches jobs data", () => {
-        axios.get.mockResolvedValue( { data : []});
+
         const $route = createRoute()
         renderJobListings($route)
-
-        expect(axios.get).toHaveBeenCalledWith(`${import.meta.env.VITE_APP_API_URL}/jobs`)
+        const jobsStore = useJobsStore();
+        expect(jobsStore.FETCH_JOBS).toHaveBeenCalled()
     })
 
     it("Creates a job listing for every job", async () => {
-        await axios.get.mockResolvedValue( { data: Array(15).fill({})});
         const $route = createRoute({ page: "1"})
-        renderJobListings($route)
+
+        renderJobListings($route);
+        const jobsStore = useJobsStore();
+        jobsStore.jobs = Array(15).fill({})
 
         const jobListings = await screen.findAllByRole("listitem");
         expect(jobListings).toHaveLength(10)
@@ -64,11 +65,13 @@ describe("JobListings", () => {
 
     describe("when user is on the first page", () => {
         it("does not show link to previous page", async () => {
-            axios.get.mockResolvedValue( { data: Array(20).fill({})});
+
             const queryParams = { page: "1" };
             const $route = createRoute(queryParams);
 
             renderJobListings($route);
+            const jobStore = useJobsStore();
+            jobStore.jobs = Array(20).fill({})
 
             /** wait for list item to load first **/
             await screen.findAllByRole('listitem');
@@ -78,12 +81,13 @@ describe("JobListings", () => {
         })
 
         it("does shows link to next page", async () => {
-            axios.get.mockResolvedValue( { data: Array(20).fill({})});
+
             const queryParams = { page: "1" };
             const $route = createRoute(queryParams);
 
             renderJobListings($route);
-
+            const jobsStore = useJobsStore();
+            jobsStore.jobs = Array(20).fill({})
             /** wait for list item to load first **/
             await screen.findAllByRole('listitem');
             const nextLink = screen.queryByRole("link", { name: /next/i});
@@ -94,12 +98,14 @@ describe("JobListings", () => {
 
     describe("When the user is on the last page", async () =>{
         it("does not show link to previous page", async () => {
-            axios.get.mockResolvedValue( { data: Array(20).fill({})});
+
             const queryParams = { page: "2" };
             const $route = createRoute(queryParams);
 
             renderJobListings($route);
 
+            const jobsStore = useJobsStore();
+            jobsStore.jobs = Array(20).fill({})
             /** wait for list item to load first **/
             await screen.findAllByRole('listitem');
             const nextLink = screen.queryByRole("link", { name: /next/i});
@@ -107,11 +113,14 @@ describe("JobListings", () => {
             expect(nextLink).not.toBeInTheDocument()
         })
         it("does not show link to previous page", async () => {
-            axios.get.mockResolvedValue( { data: Array(20).fill({})});
+
             const queryParams = { page: "2" };
             const $route = createRoute(queryParams);
 
             renderJobListings($route);
+
+            const jobsStore = useJobsStore();
+            jobsStore.jobs = Array(20).fill({})
 
             /** wait for list item to load first **/
             await screen.findAllByRole('listitem');
