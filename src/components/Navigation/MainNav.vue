@@ -45,7 +45,7 @@ export default {
       },
       url: 'https://careers.gooogle.com',
       menuItems: [
-        {text: "Teams", url: '/' },
+        {text: "Teams", url: '/teamview' },
         {text: "Locations", url: '/'},
         {text: "Life at Trishten Tech", url: '/'},
         {text: "How we hire", url: '/'},
