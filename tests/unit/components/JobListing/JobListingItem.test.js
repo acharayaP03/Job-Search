@@ -3,7 +3,7 @@ import { RouterLinkStub } from "@vue/test-utils";
 import {JobListingItem} from "../../../../src/components/JobResults";
 
 describe("JobListing", () => {
-    const join = vi.fn()
+
     const createJobProps = (jobProps = {}) => ({
         title: "Vue Developer",
         organization: "Air BnB",

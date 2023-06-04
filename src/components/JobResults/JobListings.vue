@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 import { mapState, mapActions } from "pinia";
 import { useJobsStore, FETCH_JOBS } from "../../stores/jobs";
 import JobListingItem from "./JobListingItem.vue";
