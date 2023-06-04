@@ -7,6 +7,7 @@
           <action-button text="Clear Filters" button-type="secondary" />
         </div>
       </div>
+      <collapsible-accordion heading="Degree"/>
       <collapsible-accordion heading="Job types">
         <div class="mt-5">
           <fieldset>
@@ -14,42 +15,21 @@
           </fieldset>
         </div>
       </collapsible-accordion>
-      <collapsible-accordion heading="Organizations">
-        <div class="mt-5">
-          <fieldset>
-            <ul class="flex flex-row flex-wrap">
-              <li class="h-8 w-1/2">
-                <input type="checkbox" id="vueTube" class="mr-3">
-                <label for="vueTube">Vue tube</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input type="checkbox" id="vue and me" class="mr-3">
-                <label for="vue and me">Vue and me</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input type="checkbox" id="Et Vue Brute" class="mr-3">
-                <label for="Et Vue Brute">Et Vue Brute</label>
-              </li>
-              <li class="h-8 w-1/2">
-                <input type="checkbox" id="Vue and half men" class="mr-3">
-                <label for="Vue and half men">Vue and half men</label>
-              </li>
-            </ul>
-          </fieldset>
-        </div>
-      </collapsible-accordion>
+      <job-filters-sidebar-organization/>
     </section>
   </div>
 </template>
 
 <script>
-import { CollapsibleAccordion, ActionButton } from '@/components/Shared'
+import { CollapsibleAccordion, ActionButton } from '@/components/Shared';
+import JobFiltersSidebarOrganization from "./JobFiltersSidebarOrganization.vue";
 
 export default {
   name: "JobFiltersSidebar",
   components: {
     ActionButton,
-    CollapsibleAccordion
+    CollapsibleAccordion,
+    JobFiltersSidebarOrganization
   }
 }
 </script>
