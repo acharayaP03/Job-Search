@@ -2497,5 +2497,31 @@
       ],
       "dateAdded": "2021-01-26"
     }
+  ],
+  "spotlights": [
+    {
+      "id": 1,
+      "img": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "title": "Cloud Engineering",
+      "description": "Build fun stuff in the cloud. It's a lot of fun, we promise!"
+    },
+    {
+      "id": 2,
+      "img": "https://images.unsplash.com/photo-1511376777868-611b54f68947",
+      "title": "Executive Leadership",
+      "description": "Be a leader for everyone. Leadership builds character."
+    },
+    {
+      "id": 3,
+      "img": "https://www.michaelpage.com.au/sites/michaelpage.com.au/files/2022-01/Software%20Developer.jpg",
+      "title": "Vue js Developer",
+      "description": "Redefine ubiquitous supply-chains, whiteboard 24/365 channels, and repurpose dynamic action-items."
+    },
+    {
+      "id": 4,
+      "img": "https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_640.jpg",
+      "title": "Nextjs and React",
+      "description": "Experienced React js developer with working knowledge of Nextjs and server side rendering."
+    }
   ]
 }
