@@ -3,12 +3,12 @@
     <div class="mt-5">
       <fieldset>
         <ul class="flex flex-row flex-wrap">
-          <li class="h-8 w-1/2" v-for="jobType in UNIQUE_JOB_TYPES" :key="jobType">
+          <li v-for="jobType in UNIQUE_JOB_TYPES" :key="jobType" class="h-8 w-1/2">
             <input
-                type="checkbox"
-                v-model="selectedJobType"
-                :value="jobType"
                 :id="jobType"
+                v-model="selectedJobType"
+                type="checkbox"
+                :value="jobType"
                 class="mr-3"
                 @change="selectJobType"
             >
@@ -42,7 +42,8 @@ export default {
   methods: {
     ...mapActions(useUserStore, [ADD_SELECTED_JOB_TYPES]),
     selectJobType() {
-      this.ADD_SELECTED_JOB_TYPES(this.selectedJobType)
+      this.ADD_SELECTED_JOB_TYPES(this.selectedJobType);
+      this.$router.push({ name: 'JobResults'})
     }
   }
 }
