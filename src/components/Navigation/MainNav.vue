@@ -6,9 +6,9 @@
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none">
             <li
-                class="ml-9 h-full first:ml-0"
                 v-for="menu in menuItems"
                 :key="menu.text"
+                class="ml-9 h-full first:ml-0"
             >
               <router-link :to="menu.url" class="flex h-full items-center py-2.5">{{ menu.text }}</router-link>
             </li>

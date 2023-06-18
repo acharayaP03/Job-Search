@@ -1,5 +1,6 @@
 <template>
-  <img :src="imageLink" alt="Profile image"
+  <img
+:src="imageLink" alt="Profile image"
     class="h-10 w-10 rounded-3xl object-contain border-brand-blue-1 border-2"
   >
 </template>

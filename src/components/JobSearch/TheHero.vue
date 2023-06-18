@@ -17,7 +17,7 @@
       </div>
     </section>
     <spot-lights class="flex flex-row justify-center pb-16">
-      <template v-slot:default="{ image, title, description, index }">
+      <template #default="{ image, title, description, index }">
         <router-link v-if="index !==1 " to="/jobs/results" class="mx-5 flex flex h-[268px] w-[380px] flex-col rounded-lg border bg-brand-gray-2 overflow-hidden">
           <img :src="image" :alt="title" class="h-2/4 w-full object-cover">
           <div class="mt-3 px-6 py-2">
