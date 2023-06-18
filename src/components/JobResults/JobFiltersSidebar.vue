@@ -8,13 +8,7 @@
         </div>
       </div>
       <collapsible-accordion heading="Degree"/>
-      <collapsible-accordion heading="Job types">
-        <div class="mt-5">
-          <fieldset>
-            place holder for now
-          </fieldset>
-        </div>
-      </collapsible-accordion>
+      <job-filters-sidebar-job-types/>
       <job-filters-sidebar-organization/>
     </section>
   </div>
@@ -23,13 +17,15 @@
 <script>
 import { CollapsibleAccordion, ActionButton } from '@/components/Shared';
 import JobFiltersSidebarOrganization from "./JobFiltersSidebarOrganization.vue";
+import JobFiltersSidebarJobTypes from "./JobFiltersSidebarJobTypes.vue";
 
 export default {
   name: "JobFiltersSidebar",
   components: {
     ActionButton,
     CollapsibleAccordion,
-    JobFiltersSidebarOrganization
+    JobFiltersSidebarOrganization,
+    JobFiltersSidebarJobTypes
   }
 }
 </script>
