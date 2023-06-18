@@ -1,10 +1,16 @@
 import { render, screen } from "@testing-library/vue";
 import TheSubNavigation from "@/components/Navigation/TheSubNavigation.vue";
+import {createTestingPinia} from "@pinia/testing";
+import {FILTERED_JOBS_BY_ORGANIZATIONS, useJobsStore} from "../../../../src/stores/jobs";
 
 describe("TheSubNavigation", () => {
     const renderTheSubNav = (routeName) => {
+        const pinia = createTestingPinia();
+        const jobStore = useJobsStore();
+
         render(TheSubNavigation, {
             global: {
+                plugins: [pinia],
                 mocks: {
                     $route : {
                         name: routeName
@@ -15,13 +21,17 @@ describe("TheSubNavigation", () => {
                 }
             },
         });
-    }
-    describe("when user is on jobs page", () => {
-        it("displays job count", () => {
-            const routeName = "JobResults"
 
-            renderTheSubNav(routeName)
-            const jobCount = screen.getByText("1653");
+        return { jobStore };
+    }
+    describe("when user is on jobs page",  () => {
+        it("displays job count", async() => {
+            const routeName = "JobResults"
+            const { jobStore } = renderTheSubNav(routeName);
+            const numberOfJobs = 16;
+            jobStore.FILTERED_JOBS_BY_ORGANIZATIONS = Array(numberOfJobs).fill({})
+
+            const jobCount = await screen.findByText(numberOfJobs);
 
             expect(jobCount).toBeInTheDocument();
         })
@@ -31,9 +41,11 @@ describe("TheSubNavigation", () => {
         it("dont NOT displays job count", () => {
 
             const routeName = "Home";
-            renderTheSubNav(routeName)
+            const { jobStore } = renderTheSubNav(routeName);
+            const numberOfJobs = 16;
+            jobStore.FILTERED_JOBS_BY_ORGANIZATIONS = Array(numberOfJobs).fill({})
 
-            const jobCount = screen.queryByText("1653");
+            const jobCount = screen.queryByText(numberOfJobs);
             expect(jobCount).not.toBeInTheDocument();
         })
     })

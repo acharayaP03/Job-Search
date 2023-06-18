@@ -3,21 +3,16 @@
     <div class="mt-5">
       <fieldset>
         <ul class="flex flex-row flex-wrap">
-          <li class="h-8 w-1/2">
-            <input type="checkbox" id="vueTube" class="mr-3">
-            <label for="vueTube">Vue tube</label>
-          </li>
-          <li class="h-8 w-1/2">
-            <input type="checkbox" id="vue and me" class="mr-3">
-            <label for="vue and me">Vue and me</label>
-          </li>
-          <li class="h-8 w-1/2">
-            <input type="checkbox" id="Et Vue Brute" class="mr-3">
-            <label for="Et Vue Brute">Et Vue Brute</label>
-          </li>
-          <li class="h-8 w-1/2">
-            <input type="checkbox" id="Vue and half men" class="mr-3">
-            <label for="Vue and half men">Vue and half men</label>
+          <li class="h-8 w-1/2" v-for="organization in UNIQUE_ORGANIZATIONS" :key="organization">
+            <input
+                type="checkbox"
+                v-model="selectedOrganizations"
+                :value="organization"
+                :id="organization"
+                class="mr-3"
+                @change="selectOrganization"
+            >
+            <label :for="organization">{{ organization }}</label>
           </li>
         </ul>
       </fieldset>
@@ -26,11 +21,29 @@
 </template>
 
 <script>
-import { CollapsibleAccordion } from '@/components/Shared'
+import { mapState, mapActions } from "pinia";
+import { useJobsStore, UNIQUE_ORGANIZATIONS } from "../../stores/jobs";
+import { CollapsibleAccordion } from '@/components/Shared';
+import { useUserStore, ADD_SELECTED_ORGANIZATIONS } from "../../stores/user";
+
 export default {
-  name: "JobFiltersSidebarOraganization",
+  name: "JobFiltersSidebarOrganization",
   components:{
     CollapsibleAccordion
+  },
+  data() {
+    return {
+      selectedOrganizations: []
+    }
+  },
+  computed:{
+    ...mapState(useJobsStore, [UNIQUE_ORGANIZATIONS])
+  },
+  methods: {
+    ...mapActions(useUserStore, [ADD_SELECTED_ORGANIZATIONS]),
+    selectOrganization() {
+      this.ADD_SELECTED_ORGANIZATIONS(this.selectedOrganizations)
+    }
   }
 }
 </script>
