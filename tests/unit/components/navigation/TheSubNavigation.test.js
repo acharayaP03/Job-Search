@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/vue";
 import TheSubNavigation from "@/components/Navigation/TheSubNavigation.vue";
 import {createTestingPinia} from "@pinia/testing";
-import {FILTERED_JOBS_BY_ORGANIZATIONS, useJobsStore} from "../../../../src/stores/jobs";
+import {useJobsStore} from "../../../../src/stores/jobs";
 
 describe("TheSubNavigation", () => {
     const renderTheSubNav = (routeName) => {
