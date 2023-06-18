@@ -7,7 +7,7 @@
           <div class="mr-5">{{ organization }}</div>
           <div>
             <ul>
-              <li class="mr-5 inline-block" v-for="location in job.locations" :key="location"><span>{{ location }}</span></li>
+              <li v-for="location in job.locations" :key="location" class="mr-5 inline-block"><span>{{ location }}</span></li>
             </ul>
 
           </div>

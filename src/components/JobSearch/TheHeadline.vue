@@ -18,12 +18,6 @@ export default {
       interval: null
     }
   },
-  created() {
-    this.changeTitle();
-  },
-  beforeUnmount() {
-    clearInterval(this.interval)
-  },
   computed:{
       actionClasses(){
         return {
@@ -33,6 +27,12 @@ export default {
           code: this.action === 'Code'
         }
       }
+  },
+  created() {
+    this.changeTitle();
+  },
+  beforeUnmount() {
+    clearInterval(this.interval)
   },
   methods:{
     changeTitle() {

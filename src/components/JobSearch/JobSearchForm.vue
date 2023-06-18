@@ -10,7 +10,7 @@
           reactive data in the methods.
           we can directly assign like below. this is called inline expression
         -->
-        <text-input id="role" placeholder="Software engineer" v-model="role"/>
+        <text-input id="role" v-model="role" placeholder="Software engineer"/>
       </div>
       <span class="flex items-center h-full border-l border-r border-brand-gray-3 bg-brand-gray-2 px-3">in</span>
       <div class="flex h-full flex-1 relative items-center pl-3">

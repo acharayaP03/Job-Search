@@ -8,10 +8,10 @@
         <p class="flex-grow text-sm">Page {{ currentPage }}</p>
 
         <div class="flex items-center justify-center">
-          <router-link role="link" v-if="previousPage" :to="{ name: 'JobResults', query: { page: previousPage} }" class="mx-3 text-sm font-semibold text-brand-blue-1">Previous</router-link>
+          <router-link v-if="previousPage" role="link" :to="{ name: 'JobResults', query: { page: previousPage} }" class="mx-3 text-sm font-semibold text-brand-blue-1">Previous</router-link>
         </div>
         <div class="flex items-center justify-center">
-          <router-link role="link" v-if="nextPage" :to="{ name: 'JobResults', query: { page: nextPage} }" class="mx-3 text-sm font-semibold text-brand-blue-1">Next</router-link>
+          <router-link v-if="nextPage" role="link" :to="{ name: 'JobResults', query: { page: nextPage} }" class="mx-3 text-sm font-semibold text-brand-blue-1">Next</router-link>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
 <script>
 
 import { mapState, mapActions } from "pinia";
-import { useJobsStore, FETCH_JOBS, FILTERED_JOBS_BY_ORGANIZATIONS, FILTERED_JOBS_BY_JOB_TYPES, FILTERED_JOBS } from "../../stores/jobs";
+import { useJobsStore, FETCH_JOBS, FILTERED_JOBS } from "../../stores/jobs";
 import JobListingItem from "./JobListingItem.vue";
 export default {
   name: "JobListings",

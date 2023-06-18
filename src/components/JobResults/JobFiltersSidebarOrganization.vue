@@ -3,12 +3,12 @@
     <div class="mt-5">
       <fieldset>
         <ul class="flex flex-row flex-wrap">
-          <li class="h-8 w-1/2" v-for="organization in UNIQUE_ORGANIZATIONS" :key="organization">
+          <li v-for="organization in UNIQUE_ORGANIZATIONS" :key="organization" class="h-8 w-1/2">
             <input
-                type="checkbox"
-                v-model="selectedOrganizations"
-                :value="organization"
                 :id="organization"
+                v-model="selectedOrganizations"
+                type="checkbox"
+                :value="organization"
                 class="mr-3"
                 @change="selectOrganization"
             >
