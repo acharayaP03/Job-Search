@@ -23,29 +23,24 @@
   </form>
 </template>
 
-<script>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import TextInput from "@/components/Shared/TextInput.vue";
-export default {
-  name: "JobSearchForm",
-  components: {FontAwesomeIcon, ActionButton, TextInput},
-  data() {
-    return {
-      role: '',
-      location: ''
-    }
-  },
-  methods: {
-    searchJobs(){
-      this.$router.push({
-        name: 'JobResults',
-        query: {
-          role: this.role,
-          location: this.location
-        }
-      })
-    }
-  }
+
+const role = ref("");
+const location = ref("");
+const router = useRouter();
+
+const searchJobs = () => {
+  router.push({
+      name: 'JobResults',
+      query: {
+        role: role.value,
+        location: location.value
+      }
+    })
 }
 </script>
