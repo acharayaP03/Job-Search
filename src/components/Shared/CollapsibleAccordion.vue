@@ -17,30 +17,23 @@
 </template>
 
 <script>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import { ref, computed } from "vue";
 export default {
   name: "CollapsibleAccordion",
-  components: {FontAwesomeIcon},
   props:{
     heading: {
       type: String,
       required: true
     }
   },
-  data() {
-    return {
-      isOpen: false
-    }
-  },
-  computed:{
-    caretIcon(){
-      return this.isOpen ? ["fas", "angle-up"] : ["fas", "angle-down"]
-    }
-  },
-  methods:{
-    open() {
-      this.isOpen = !this.isOpen;
-    }
+  setup() {
+    const isOpen = ref(false);
+
+    const caretIcon = computed(() => isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"])
+
+    const open = () => isOpen.value = !isOpen.value;
+
+    return { isOpen, caretIcon, open }
   }
 }
 </script>
