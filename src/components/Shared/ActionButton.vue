@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import {computed, toRefs} from "vue";
+
 export default {
   name: "ActionButton",
   props:{
@@ -27,10 +29,17 @@ export default {
       }
     }
   },
-  computed:{
-    buttonClass() {
-      return { primary: this.primary, secondary: this.secondary, [this.buttonType] : true}
-    }
+  setup(props){
+    const { primary, secondary, buttonType } = toRefs(props)
+    const buttonClass = computed(() => {
+      return{
+        primary: primary.value,
+        secondary: secondary.value,
+        [buttonType.value] : true
+      }
+    });
+
+    return { buttonClass }
   }
 }
 </script>
