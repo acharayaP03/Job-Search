@@ -7,7 +7,7 @@ vi.mock("vue-router");
 import {JobFiltersSidebarJobTypes} from "../../../../../src/components/JobResults";
 import { useJobsStore } from "@/stores/jobs";
 import {useUserStore} from "@/stores/user";
-import {router} from "json-server";
+
 
 describe("JobFiltersSidebarJobTypes", () => {
     const renderJobFiltersSidebarJobTypes = () => {
