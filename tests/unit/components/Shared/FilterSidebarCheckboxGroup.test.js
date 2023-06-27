@@ -73,7 +73,7 @@ describe("FilterSideBarCheckboxGroup", () =>{
 
             expect(actions).toHaveBeenCalledWith(['Full-time'])
         });
-        it.only("navigates user to job results page to see fresh batch of filtered jobs", async () => {
+        it("navigates user to job results page to see fresh batch of filtered jobs", async () => {
             const push = vi.fn();
             const props = createProps({
                 heading: "Job Types",
