@@ -1,24 +1,27 @@
 import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
-import {createTestingPinia} from "@pinia/testing";
 import { useRouter } from "vue-router";
+import { createTestingPinia } from "@pinia/testing";
 vi.mock("vue-router");
 
-import {JobFiltersSidebarJobTypes} from "../../../../../src/components/JobResults";
-import { useJobsStore } from "@/stores/jobs";
-import {useUserStore} from "@/stores/user";
+import { FilterSidebarCheckboxGroup } from '../../../../src/components/Shared';
 
 
-describe("JobFiltersSidebarJobTypes", () => {
-    const renderJobFiltersSidebarJobTypes = () => {
+describe("FilterSideBarCheckboxGroup", () =>{
+    const createProps = (props ={}) => ({
+        heading: "Heading",
+        uniqueItems: new Set(["ValueA", "ValueB"]),
+        actions: vi.fn(),
+        ...props
+    });
+
+    const renderFilterSidebarCheckbox = (props) => {
         const pinia = createTestingPinia();
-        const jobsStore = useJobsStore();
-        const userStore = useUserStore();
 
-        const push = vi.fn()
-        useRouter.mockReturnValue({ push });
-
-        render(JobFiltersSidebarJobTypes, {
+        render(FilterSidebarCheckboxGroup, {
+            props: {
+                ...props
+            },
             global: {
                 plugins: [pinia],
                 stubs: {
@@ -26,15 +29,14 @@ describe("JobFiltersSidebarJobTypes", () => {
                 }
             }
         });
+    };
 
-        return { jobsStore, userStore, push }
-    }
-
-    it("renders unique list of job types from jobs", async () => {
-
-        const { jobsStore } = renderJobFiltersSidebarJobTypes();
-        jobsStore.UNIQUE_JOB_TYPES = new Set(["Full-time", "Part-time"]);
-
+    it("renders unique list of values", async () => {
+        const props = createProps({
+            heading: "Job Types",
+            uniqueItems: new Set(["Full-time", "Part-time"])
+        });
+        renderFilterSidebarCheckbox(props);
         const button = screen.getByRole('button', {
             name: /job types/i
         })
@@ -49,9 +51,14 @@ describe("JobFiltersSidebarJobTypes", () => {
 
     describe("when user clicks checkbox", () =>{
         it("communicates that user has selected checkbox for job types", async () => {
-            const { jobsStore, userStore } = renderJobFiltersSidebarJobTypes()
-
-            jobsStore.UNIQUE_JOB_TYPES = new Set(["Full-time", "Part-time"]);
+            const actions = vi.fn()
+            const props = createProps({
+                heading: "Job Types",
+                uniqueItems: new Set(["Full-time", "Part-time"]),
+                actions
+            })
+            useRouter.mockReturnValue({ push: vi.fn() })
+            renderFilterSidebarCheckbox(props)
 
             const button = screen.getByRole('button', {
                 name: /job types/i
@@ -64,12 +71,16 @@ describe("JobFiltersSidebarJobTypes", () => {
 
             await userEvent.click(fullTimeCheckbox);
 
-            expect(userStore.ADD_SELECTED_JOB_TYPES).toHaveBeenCalledWith(['Full-time'])
+            expect(actions).toHaveBeenCalledWith(['Full-time'])
         });
         it("navigates user to job results page to see fresh batch of filtered jobs", async () => {
-            const { jobsStore, push  } = renderJobFiltersSidebarJobTypes()
-
-            jobsStore.UNIQUE_JOB_TYPES = new Set(["Full-time", "Part-time"]);
+            const push = vi.fn();
+            const props = createProps({
+                heading: "Job Types",
+                uniqueItems: new Set(["Full-time", "Part-time"])
+            })
+            useRouter.mockReturnValue({ push})
+            renderFilterSidebarCheckbox(props)
 
             const button = screen.getByRole('button', {
                 name: /job types/i
