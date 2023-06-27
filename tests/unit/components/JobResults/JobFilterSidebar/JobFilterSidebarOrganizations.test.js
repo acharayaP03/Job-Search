@@ -1,6 +1,9 @@
 import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import {createTestingPinia} from "@pinia/testing";
+import { useRouter } from "vue-router";
+vi.mock("vue-router");
+
 
 import JobFiltersSidebarOrganization from "../../../../../src/components/JobResults/JobFiltersSidebarOrganization.vue";
 import { useJobsStore } from "../../../../../src/stores/jobs";
@@ -11,21 +14,18 @@ describe("JobFilterSidebarOrganization", () => {
         const pinia = createTestingPinia();
         const jobsStore = useJobsStore();
         const userStore = useUserStore();
-        const $router = { push : vi.fn() }
-
+        const push = vi.fn();
+        useRouter.mockReturnValue({ push })
         render(JobFiltersSidebarOrganization, {
             global: {
                 plugins: [pinia],
                 stubs: {
                     FontAwesomeIcon : true
                 },
-                mocks: {
-                    $router
-                }
             }
         });
 
-        return { jobsStore, userStore, $router }
+        return { jobsStore, userStore, push }
     }
     it("renders unique list of organizations from jobs", async () => {
 
@@ -65,7 +65,7 @@ describe("JobFilterSidebarOrganization", () => {
             expect(userStore.ADD_SELECTED_ORGANIZATIONS).toHaveBeenCalledWith(['Google'])
         })
         it("navigates user to job result page to see fresh batch of jobs", async () => {
-            const { jobsStore, $router } = renderJobFilterSidebarOrganizations()
+            const { jobsStore, push } = renderJobFilterSidebarOrganizations()
             jobsStore.UNIQUE_ORGANIZATIONS = new Set(["Google", "Amazon"]);
 
             const button = screen.getByRole('button', {
@@ -79,7 +79,7 @@ describe("JobFilterSidebarOrganization", () => {
 
             await userEvent.click(googleCheckbox);
 
-            expect($router.push).toHaveBeenCalledWith({ name: "JobResults"})
+            expect(push).toHaveBeenCalledWith({ name: "JobResults"})
         })
     })
 
