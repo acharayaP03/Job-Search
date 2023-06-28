@@ -32,25 +32,19 @@
   </li>
 </template>
 
-<script>
-export default {
-  name: "JobListingItem",
-  props: {
-    job: {
-      type: Object,
-      required: true
-    }
-  },
-  computed:{
-    getJobUrl() {
-      return `/jobs/results/${this.job.id}`
-    },
-    title() {
-      return this.job.title
-    },
-    organization() {
-      return this.job.organization
-    },
+<script setup>
+
+
+import { computed } from "vue";
+const props = defineProps({
+  job: {
+    type: Object,
+    required: true
   }
-}
+})
+
+const getJobUrl = computed(() => `/jobs/results/${props.job.id}`)
+const title = computed(() => props.job.title);
+const organization = computed(() => props.job.organization)
+
 </script>
