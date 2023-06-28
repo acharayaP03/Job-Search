@@ -18,47 +18,39 @@
   </main>
 </template>
 
-<script>
 
-import { mapState, mapActions } from "pinia";
-import { useJobsStore, FETCH_JOBS, FILTERED_JOBS } from "../../stores/jobs";
+<script setup>
+import { computed, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { useJobsStore } from "../../stores/jobs";
 import JobListingItem from "./JobListingItem.vue";
-export default {
-  name: "JobListings",
-  components:{
-    JobListingItem
-  },
-  computed:{
 
-    currentPage() {
-        return +(this.$route.query.page || "1");
-    },
-    previousPage() {
-      const previousPage = this.currentPage - 1;
-      const firstPage = 1;
-      return previousPage >= firstPage ? previousPage : undefined
-    },
-    ...mapState(useJobsStore, {
-      FILTERED_JOBS,
-      nextPage() {
-        const nextPage = this.currentPage + 1;
-        const lastPage = Math.ceil(this.FILTERED_JOBS.length / 10);
-        return nextPage <= lastPage ? nextPage : undefined;
-      },
-      displaySlicedJobs(){
-        const pageNumber = this.currentPage;
-        const firstJobIndex = (pageNumber - 1 ) * 10;
-        const lastJobIndex = pageNumber * 10;
+const jobStore = useJobsStore();
+const route = useRoute();
 
-        return this.FILTERED_JOBS.slice(firstJobIndex, lastJobIndex)
-      }
-    }),
-  },
-  async mounted() {
-    this.FETCH_JOBS();
-  },
-  methods:{
-    ...mapActions(useJobsStore, [FETCH_JOBS])
-  }
-}
+onMounted(jobStore.FETCH_JOBS);
+
+
+const currentPage = computed(() => +(route.query.page || "1"))
+const previousPage = computed(() => {
+  const previousPage = currentPage.value - 1;
+  const firstPage = 1;
+  return previousPage >= firstPage ? previousPage : undefined
+});
+
+const FILTERED_JOBS = computed(() => jobStore.FILTERED_JOBS);
+const nextPage = computed(() =>{
+  const nextPage = currentPage.value + 1;
+  const lastPage = Math.ceil(FILTERED_JOBS.value.length / 10);
+  return nextPage <= lastPage ? nextPage : undefined;
+})
+
+const displaySlicedJobs = computed(() =>{
+  const pageNumber = currentPage.value;
+  const firstJobIndex = (pageNumber - 1 ) * 10;
+  const lastJobIndex = pageNumber * 10;
+
+  return FILTERED_JOBS.value.slice(firstJobIndex, lastJobIndex)
+})
+
 </script>
