@@ -16,13 +16,13 @@
   </div>
 </template>
 
-<script>
-import { ref, computed } from "vue";
+<script lang="ts">
+import {ref, computed, PropType} from "vue";
 export default {
   name: "CollapsibleAccordion",
   props:{
     heading: {
-      type: String,
+      type: String as PropType<string>,
       required: true
     }
   },

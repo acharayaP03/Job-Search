@@ -32,7 +32,7 @@ describe("usePreviousAndNextPages", () => {
 
     describe("when current page is the last page", () => {
         it("does not provide previous page", () => {
-            const currentPage = ref(8);
+            const currentPage = ref(10);
             const maxPage = ref(10);
 
             const { nextPage } = usePreviousAndNextPages(currentPage, maxPage);

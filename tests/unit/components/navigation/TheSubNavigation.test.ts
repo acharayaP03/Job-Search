@@ -1,3 +1,4 @@
+import type { Mock } from "vitest";
 import { render, screen } from "@testing-library/vue";
 import TheSubNavigation from "@/components/Navigation/TheSubNavigation.vue";
 import {createTestingPinia} from "@pinia/testing";
@@ -5,12 +6,12 @@ import {useJobsStore} from "../../../../src/stores/jobs";
 import { useRoute } from "vue-router";
 
 vi.mock('vue-router');
-
+const useRouteMock = useRoute() as Mock;
 describe("TheSubNavigation", () => {
     const renderTheSubNav = (routeName) => {
         const pinia = createTestingPinia();
         const jobStore = useJobsStore();
-        useRoute.mockReturnValue({ name : routeName })
+        useRouteMock.mockReturnValue({ name : routeName })
 
         render(TheSubNavigation, {
             global: {
@@ -28,6 +29,7 @@ describe("TheSubNavigation", () => {
             const routeName = "JobResults"
             const { jobStore } = renderTheSubNav(routeName);
             const numberOfJobs = 16;
+
             jobStore.FILTERED_JOBS = Array(numberOfJobs).fill({})
 
             const jobCount = await screen.findByText(numberOfJobs);

@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 import { useRoute } from 'vue-router';
 import { useJobsStore } from "../../stores/jobs";
