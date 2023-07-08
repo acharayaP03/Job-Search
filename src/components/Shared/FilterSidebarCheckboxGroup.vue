@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import {PropType, ref} from "vue";
 import { useRouter } from "vue-router";
 const props = defineProps({
   heading: {
@@ -29,18 +29,18 @@ const props = defineProps({
     required: true
   },
   uniqueItems: {
-    type: Set,
+    type: Set as PropType<string>,
     required: true
   },
   actions: {
-    type: Function,
+    type: Function as PropType<Function>,
     required: true
   }
 })
 
 import {CollapsibleAccordion} from "./index";
 
-const selectedItemType = ref([]);
+const selectedItemType = ref<string>([]);
 const router = useRouter();
 
 const selectItemValue = () => {

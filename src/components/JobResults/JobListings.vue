@@ -19,7 +19,7 @@
 </template>
 
 
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useJobsStore } from "../../stores/jobs";
@@ -32,7 +32,7 @@ const route = useRoute();
 onMounted(jobStore.FETCH_JOBS);
 
 
-const currentPage = computed(() => +(route.query.page || "1"))
+const currentPage = computed((): number => Number.parseInt(route.query.page as string || "1"))
 const FILTERED_JOBS = computed(() => jobStore.FILTERED_JOBS);
 const maxPage = computed(() => Math.ceil(FILTERED_JOBS.value.length / 10));
 

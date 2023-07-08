@@ -2,20 +2,27 @@ import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "vue-router";
 import { createTestingPinia } from "@pinia/testing";
-vi.mock("vue-router");
+import type { Mock } from "vitest";
 
+vi.mock("vue-router");
+const userRouterMock = useRouter() as Mock;
 import { FilterSidebarCheckboxGroup } from '../../../../src/components/Shared';
 
+interface JobFilterSidebarCheckboxGroup {
+    heading: string;
+    uniqueItems: Set<string>,
+    actions: Mock,
+}
 
 describe("FilterSideBarCheckboxGroup", () =>{
-    const createProps = (props ={}) => ({
+    const createProps = (props: Partial<JobFilterSidebarCheckboxGroup> = {}): JobFilterSidebarCheckboxGroup => ({
         heading: "Heading",
         uniqueItems: new Set(["ValueA", "ValueB"]),
         actions: vi.fn(),
         ...props
     });
 
-    const renderFilterSidebarCheckbox = (props) => {
+    const renderFilterSidebarCheckbox = (props: JobFilterSidebarCheckboxGroup) => {
         const pinia = createTestingPinia();
 
         render(FilterSidebarCheckboxGroup, {
@@ -57,7 +64,7 @@ describe("FilterSideBarCheckboxGroup", () =>{
                 uniqueItems: new Set(["Full-time", "Part-time"]),
                 actions
             })
-            useRouter.mockReturnValue({ push: vi.fn() })
+            userRouterMock.mockReturnValue({ push: vi.fn() })
             renderFilterSidebarCheckbox(props)
 
             const button = screen.getByRole('button', {
@@ -79,7 +86,7 @@ describe("FilterSideBarCheckboxGroup", () =>{
                 heading: "Job Types",
                 uniqueItems: new Set(["Full-time", "Part-time"])
             })
-            useRouter.mockReturnValue({ push})
+            userRouterMock.mockReturnValue({ push})
             renderFilterSidebarCheckbox(props)
 
             const button = screen.getByRole('button', {
