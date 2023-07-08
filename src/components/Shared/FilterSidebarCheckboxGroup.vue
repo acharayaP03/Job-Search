@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import {PropType, ref} from "vue";
+import {type PropType, ref} from "vue";
 import { useRouter } from "vue-router";
 const props = defineProps({
   heading: {

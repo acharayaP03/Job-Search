@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import {ref, computed, PropType} from "vue";
+import {ref, computed, type PropType} from "vue";
 export default {
   name: "CollapsibleAccordion",
   props:{

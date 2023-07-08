@@ -10,10 +10,6 @@
   </header-container>
 </template>
 
-<script>
+<script lang="ts" setup>
 import {HeaderContainer} from "../components/Shared";
-export default {
-  name: "TeamsView",
-  components: {HeaderContainer}
-}
 </script>
