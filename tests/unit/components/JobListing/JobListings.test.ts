@@ -1,6 +1,9 @@
 import { render, screen } from "@testing-library/vue";
 import { useRoute } from "vue-router";
+import type { Mock } from "vitest";
+
 vi.mock("vue-router")
+const useRouteMock = useRoute() as Mock;
 import { createTestingPinia } from "@pinia/testing";
 import { RouterLinkStub } from "@vue/test-utils";
 import {JobListings} from "../../../../src/components/JobResults";
@@ -10,6 +13,7 @@ describe("JobListings", () => {
     const renderJobListings = () => {
         const pinia = createTestingPinia();
         const jobsStore = useJobsStore();
+        // @ts-expect-error : Getter from pinia are only readable
         jobsStore.FILTERED_JOBS = Array(15).fill({})
         render(JobListings, {
             global: {
@@ -24,7 +28,7 @@ describe("JobListings", () => {
     }
 
     it("fetches jobs data", () => {
-        useRoute.mockReturnValue({ query: {}})
+        useRouteMock.mockReturnValue({ query: {}})
 
         const { jobsStore } = renderJobListings()
         expect(jobsStore.FETCH_JOBS).toHaveBeenCalled()
@@ -32,8 +36,9 @@ describe("JobListings", () => {
 
     it("Creates a job listing for every job", async () => {
 
-        useRoute.mockReturnValue({ query: { page: "1"}})
+        useRouteMock.mockReturnValue({ query: { page: "1"}})
         const { jobsStore } = renderJobListings()
+        // @ts-expect-error : Getter from pinia are only readable
         jobsStore.FILTERED_JOBS = Array(15).fill({})
 
         const jobListings = await screen.findAllByRole("listitem");
@@ -41,7 +46,7 @@ describe("JobListings", () => {
     })
 
     it("when params exclude page number", () => {
-        useRoute.mockReturnValue({ query: { page: undefined }})
+        useRouteMock.mockReturnValue({ query: { page: undefined }})
         renderJobListings();
 
         expect(screen.getByText("Page 1")).toBeInTheDocument();
@@ -49,7 +54,7 @@ describe("JobListings", () => {
 
     it("when params include page number", () => {
         const queryParams = { page: "3" };
-        useRoute.mockReturnValue({ query: { ...queryParams }})
+        useRouteMock.mockReturnValue({ query: { ...queryParams }})
         renderJobListings();
 
         expect(screen.getByText("Page 3")).toBeInTheDocument();
@@ -59,9 +64,10 @@ describe("JobListings", () => {
         it("does not show link to previous page", async () => {
 
             const queryParams = { page: "1" };
-            useRoute.mockReturnValue({ query: { ...queryParams }});
+            useRouteMock.mockReturnValue({ query: { ...queryParams }});
 
             const { jobsStore } = renderJobListings();
+            // @ts-expect-error : Getter from pinia are only readable
             jobsStore.FILTERED_JOBS = Array(20).fill({})
 
             /** wait for list item to load first **/
@@ -74,10 +80,11 @@ describe("JobListings", () => {
         it("does shows link to next page", async () => {
 
             const queryParams = { page: "1" };
-            useRoute.mockReturnValue({ query: { ...queryParams }})
+            useRouteMock.mockReturnValue({ query: { ...queryParams }})
 
 
             const { jobsStore } = renderJobListings();
+            // @ts-expect-error : Getter from pinia are only readable
             jobsStore.FILTERED_JOBS = Array(20).fill({})
             /** wait for list item to load first **/
             await screen.findAllByRole('listitem');
@@ -91,10 +98,11 @@ describe("JobListings", () => {
         it("does not show link to previous page", async () => {
 
             const queryParams = { page: "2" };
-            useRoute.mockReturnValue({ query: { ...queryParams }})
+            useRouteMock.mockReturnValue({ query: { ...queryParams }})
 
 
             const { jobsStore } = renderJobListings();
+            // @ts-expect-error : Getter from pinia are only readable
             jobsStore.FILTERED_JOBS = Array(20).fill({})
             /** wait for list item to load first **/
             await screen.findAllByRole('listitem');
@@ -105,10 +113,11 @@ describe("JobListings", () => {
         it("does not show link to previous page", async () => {
 
             const queryParams = { page: "2" };
-            useRoute.mockReturnValue({ query: { ...queryParams }})
+            useRouteMock.mockReturnValue({ query: { ...queryParams }})
 
 
             const { jobsStore } = renderJobListings();
+            // @ts-expect-error : Getter from pinia are only readable
             jobsStore.FILTERED_JOBS = Array(20).fill({})
 
             /** wait for list item to load first **/

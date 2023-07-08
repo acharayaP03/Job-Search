@@ -6,18 +6,6 @@
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import {JobFiltersSidebar, JobListings} from "../components/JobResults";
-export default {
-  name: "JobView",
-  components:{
-    JobListings,
-    JobFiltersSidebar
-  },
-  computed:{
-    getJobId() {
-      return this.$route.params.id
-    }
-  }
-}
 </script>

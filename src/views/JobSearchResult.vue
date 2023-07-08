@@ -4,8 +4,5 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "JobSearchResult"
-}
+<script lang="ts" setup>
 </script>

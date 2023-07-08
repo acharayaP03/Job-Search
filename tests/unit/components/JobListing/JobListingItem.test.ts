@@ -1,15 +1,13 @@
 import { render, screen } from "@testing-library/vue";
 import { RouterLinkStub } from "@vue/test-utils";
 import {JobListingItem} from "../../../../src/components/JobResults";
+import type { Job } from "@/api/types";
+
+import { createJob } from "../../../utility/createJob";
 
 describe("JobListing", () => {
 
-    const createJobProps = (jobProps = {}) => ({
-        title: "Vue Developer",
-        organization: "Air BnB",
-        ...jobProps
-    })
-    const renderJobListingItem = (jobProps) => {
+    const renderJobListingItem = (job: Job) => {
         render(JobListingItem, {
             global : {
                 stubs: {
@@ -18,7 +16,7 @@ describe("JobListing", () => {
             },
             props: {
                 job: {
-                    ...jobProps
+                    ...job
                 }
             },
             computed: {
@@ -35,19 +33,19 @@ describe("JobListing", () => {
         })
     }
     it("renders job title", () => {
-        const jobProps = createJobProps({ title: "VueJs Developer"})
+        const jobProps = createJob({ title: "VueJs Developer"})
         renderJobListingItem(jobProps)
         expect(screen.getByText("VueJs Developer")).toBeInTheDocument()
     })
 
     it("renders job organization", () => {
-        const jobProps = createJobProps({ organization: "Trishten Tech"})
+        const jobProps = createJob({ organization: "Trishten Tech"})
         renderJobListingItem(jobProps)
         expect(screen.getByText("Trishten Tech")).toBeInTheDocument()
     })
 
     it("renders job locations", () => {
-        const jobProps = createJobProps({
+        const jobProps = createJob({
             locations: ["Lidcombe", "Sydney"]
         })
         renderJobListingItem(jobProps)
@@ -56,8 +54,8 @@ describe("JobListing", () => {
     })
 
     it("renders job qualifications", () => {
-        const jobProps = createJobProps({
-            preferredQualifications: ["Code", "Develop"]
+        const jobProps = createJob({
+            preferredQualification: ["Code", "Develop"]
         });
         renderJobListingItem(jobProps);
         expect(screen.getByText("Code")).toBeInTheDocument()

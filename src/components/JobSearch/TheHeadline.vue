@@ -8,41 +8,29 @@
   </section>
 </template>
 
-<script>
+<script setup lang="ts">
+import {computed, onBeforeUnmount, onMounted, ref} from 'vue';
 import nextElementInList from "../../utils/nextElementInList";
-export default {
-  name: "TheHeadline",
-  data(){
-    return {
-      action: 'Build',
-      interval: null
-    }
-  },
-  computed:{
-      actionClasses(){
-        return {
-          build: this.action === 'Build',
-          create: this.action === 'Create',
-          design: this.action === 'Design',
-          code: this.action === 'Code'
-        }
-      }
-  },
-  created() {
-    this.changeTitle();
-  },
-  beforeUnmount() {
-    clearInterval(this.interval)
-  },
-  methods:{
-    changeTitle() {
-      this.interval = setInterval(() =>{
-        const actions = ["Build", "Create", "Design", "Code"];
-        this.action = nextElementInList(actions, this.action)
-      }, 3000)
-    }
+
+const action = ref("Build");
+const interval = ref<NodeJS.Timer>();
+
+
+const actionClasses = computed(() => {
+  return {
+    [action.value.toLowerCase()]: true
   }
-}
+})
+
+const changeTitle = () => {
+  interval.value = setInterval(() =>{
+    const actions = ["Build", "Create", "Design", "Code"];
+    action.value = nextElementInList(actions, action.value)
+  }, 3000)
+};
+
+onMounted(changeTitle);
+onBeforeUnmount(() => clearInterval(interval.value))
 </script>
 
 <style scoped>
