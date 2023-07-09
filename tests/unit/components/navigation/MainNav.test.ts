@@ -7,8 +7,8 @@ import { createTestingPinia } from "@pinia/testing";
 import {useRoute} from "vue-router";
 
 vi.mock("vue-router")
-const useRouteMock = useRoute() as Mock;
-
+// const useRouteMock = useRoute() as Mock;
+const useRouteMock = vi.mocked(useRoute) as Mock;
 describe('MainNav', () => {
     useRouteMock.mockReturnValue({ name: "Home"})
     const renderMainNav = () => {

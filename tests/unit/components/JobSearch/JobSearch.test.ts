@@ -5,8 +5,8 @@ import JobSearchForm from "@/components/JobSearch/JobSearchForm.vue";
 import type { Mock } from "vitest";
 
 vi.mock("vue-router")
-const useRouterMock = useRouter() as Mock;
-
+// const useRouterMock = useRouter() as Mock;
+const useRouterMock = vi.mocked(useRouter) as Mock;
 describe("JobSearchForm", () => {
     describe("When user submits form", () => {
         it("directs user to job results page with user's search parameters", async () => {

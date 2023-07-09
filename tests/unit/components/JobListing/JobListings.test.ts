@@ -3,7 +3,8 @@ import { useRoute } from "vue-router";
 import type { Mock } from "vitest";
 
 vi.mock("vue-router")
-const useRouteMock = useRoute() as Mock;
+// const useRouteMock = useRoute() as Mock;
+const useRouteMock = vi.mocked(useRoute) as Mock;
 import { createTestingPinia } from "@pinia/testing";
 import { RouterLinkStub } from "@vue/test-utils";
 import {JobListings} from "../../../../src/components/JobResults";

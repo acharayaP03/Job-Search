@@ -5,7 +5,9 @@ import { createTestingPinia } from "@pinia/testing";
 import type { Mock } from "vitest";
 
 vi.mock("vue-router");
-const userRouterMock = useRouter() as Mock;
+// const userRouterMock = useRouter() as Mock;
+
+const userRouterMock = vi.mocked(useRouter) as Mock;
 import { FilterSidebarCheckboxGroup } from '../../../../src/components/Shared';
 
 interface JobFilterSidebarCheckboxGroup {
