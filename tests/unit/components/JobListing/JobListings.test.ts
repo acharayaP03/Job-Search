@@ -9,11 +9,13 @@ import { createTestingPinia } from "@pinia/testing";
 import { RouterLinkStub } from "@vue/test-utils";
 import {JobListings} from "../../../../src/components/JobResults";
 import { useJobsStore } from "../../../../src/stores/jobs";
+import { useDegreesStore } from "@/stores/degrees";
 
 describe("JobListings", () => {
     const renderJobListings = () => {
         const pinia = createTestingPinia();
         const jobsStore = useJobsStore();
+        const degreeStore = useDegreesStore();
         // @ts-expect-error : Getter from pinia are only readable
         jobsStore.FILTERED_JOBS = Array(15).fill({})
         render(JobListings, {
@@ -25,7 +27,7 @@ describe("JobListings", () => {
             }
         });
 
-        return { jobsStore }
+        return { jobsStore, degreeStore }
     }
 
     it("fetches jobs data", () => {
@@ -33,6 +35,13 @@ describe("JobListings", () => {
 
         const { jobsStore } = renderJobListings()
         expect(jobsStore.FETCH_JOBS).toHaveBeenCalled()
+    })
+
+    it("fetches degrees", () => {
+        useRouteMock.mockReturnValue({ query: {}});
+
+        const { degreeStore } = renderJobListings();
+        expect(degreeStore.FETCH_DEGREES).toHaveBeenCalled();
     })
 
     it("Creates a job listing for every job", async () => {

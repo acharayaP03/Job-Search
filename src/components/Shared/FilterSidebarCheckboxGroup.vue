@@ -29,7 +29,7 @@ const props = defineProps({
     required: true
   },
   uniqueItems: {
-    type: Set as PropType<string>,
+    type: [Set, Array<string>],
     required: true
   },
   actions: {
