@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, computed } from 'vue';
-import {Degree} from "@/api/types";
+import type {Degree} from "@/api/types";
 import getDegrees from "@/api/getDegree";
 
 export const useDegreesStore = defineStore("degrees", () => {
@@ -11,6 +11,6 @@ export const useDegreesStore = defineStore("degrees", () => {
         degrees.value = receivedDegrees
     }
 
-    const UNIQUE_DEGREES = computed(() => degrees.value.map( (degree) => degree.degrees))
+    const UNIQUE_DEGREES = computed(() => degrees.value.map( (degree) => degree.degree))
     return { degrees, FETCH_DEGREES, UNIQUE_DEGREES }
 })
