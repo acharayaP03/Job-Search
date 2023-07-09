@@ -123,5 +123,31 @@ describe("getters", () => {
             expect(result).toEqual(new Set(["Full-time", "Temporary"]))
         })
     })
+
+    describe('INCLUDE_JOB_BY_DEGREE', () => {
+        describe("when the user has not selected any degrees", () => {
+            it("includes jobs", () => {
+                const userStore = useUserStore();
+                userStore.selectedDegreeType = [];
+                const store = useJobsStore();
+                const job = createJob();
+
+                const result = store.INCLUDE_JOB_BY_DEGREE(job);
+
+                expect(result).toBe(true)
+            })
+        });
+
+        it("identifies if job is associated with given degrees", () => {
+            const userStore = useUserStore();
+            userStore.selectedDegreeType = ["Master's"];
+            const store = useJobsStore();
+            const job = createJob({ degree: "Master's"});
+
+            const result = store.INCLUDE_JOB_BY_DEGREE(job);
+
+            expect(result).toBe(true)
+        })
+    })
 })
 

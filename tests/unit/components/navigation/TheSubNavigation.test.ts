@@ -5,8 +5,9 @@ import {createTestingPinia} from "@pinia/testing";
 import {useJobsStore} from "../../../../src/stores/jobs";
 import { useRoute } from "vue-router";
 
-vi.mock('vue-router');
-const useRouteMock = useRoute() as Mock;
+vi.mock('vue-router', () => ({ useRoute: vi.fn() }));
+// const useRouteMock = useRoute() as Mock;
+const useRouteMock = vi.mocked(useRoute) as Mock
 describe("TheSubNavigation", () => {
     const renderTheSubNav = (routeName) => {
         const pinia = createTestingPinia();

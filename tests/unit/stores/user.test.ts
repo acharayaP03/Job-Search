@@ -20,6 +20,11 @@ describe("State", () => {
         const store = useUserStore();
 
         expect(store.selectedJobTypes).toEqual([])
+    });
+
+    it("stores degrees that the user would like ot filter job by", () => {
+        const store = useUserStore();
+        expect(store.selectedDegreeType).toEqual([])
     })
 })
 
@@ -50,6 +55,15 @@ describe("actions", () => {
             store.ADD_SELECTED_JOB_TYPES(["Full-time", "part-time"]);
 
             expect(store.selectedJobTypes).toEqual(["Full-time", "part-time"])
+        })
+    })
+
+    describe("ADD_SELECTED_DEGREE", () => {
+        it.only("updates degrees the user has chosen to filter jobs by", () => {
+            const store = useUserStore();
+            store.ADD_SELECTED_DEGREE_TYPE(["Master's", "Bachelor's"]);
+
+            expect(store.selectedDegreeType).toEqual(["Master's", "Bachelor's"])
         })
     })
 })
