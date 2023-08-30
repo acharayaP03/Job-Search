@@ -36,7 +36,7 @@ describe("actions", () => {
     describe("Login user", () => {
         it("logs the user in", () => {
             const store = useUserStore();
-            store.loginUser();
+            store.LOGIN_USER();
             expect(store.isLoggedIn).toBe(true)
         })
     });
@@ -65,5 +65,21 @@ describe("actions", () => {
 
             expect(store.selectedDegreeType).toEqual(["Master's", "Bachelor's"])
         })
+    })
+
+    describe("CLEAR_USER_JOB_SELECTIONS", () => {
+        it("removes all job filters that user has chosen", () => {
+            const store = useUserStore();
+            store.selectedDegrees = ["Random degree"];
+            store.selectedJobTypes = ["Random job type"];
+            store.selectedOrganizations = ["Random organizations"];
+
+            store.CLEAR_USER_JOB_SELECTIONS();
+
+            expect(store.selectedDegrees).toEqual([]);
+            expect(store.selectedJobTypes).toEqual([]);
+            expect(store.selectedOrganizations).toEqual([]);
+        })
+
     })
 })
