@@ -42,7 +42,8 @@ const menuItems = ref([
 ]);
 
 const userStore = useUserStore();
-const loginUser = userStore.loginUser();
+console.log(userStore.isLoggedIn)
+const loginUser = userStore.LOGIN_USER();
 
 const isLoggedIn = computed(() => userStore.isLoggedIn);
 const headerHeightClass = computed(() => ({
