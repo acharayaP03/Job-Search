@@ -1,4 +1,3 @@
-
 /// <reference types="vitest/globals" />
 import { fileURLToPath, URL } from 'node:url'
 
@@ -18,6 +17,6 @@ export default defineConfig({
     setupFiles: ['./tests/setup.ts']
   },
   server: {
-    port: 5000
+    port: 8080
   }
 })
