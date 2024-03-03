@@ -1,50 +1,42 @@
 <template>
-  <collapsible-accordion :heading="heading">
-    <div class="mt-5">
-      <fieldset>
-        <ul class="flex flex-row flex-wrap">
-          <li v-for="itemType in uniqueItems" :key="itemType" class="h-8 w-1/2">
-            <input
-                :id="itemType"
-                v-model="selectedItemType"
-                type="checkbox"
-                :value="itemType"
-                class="mr-3"
-                @change="selectItemValue"
-            >
-            <label :for="itemType">{{ itemType }}</label>
-          </li>
-        </ul>
-      </fieldset>
-    </div>
-  </collapsible-accordion>
+  <div class="mt-5">
+    <fieldset>
+      <ul class="flex flex-row flex-wrap">
+        <li v-for="itemType in uniqueItems" :key="itemType" class="h-8 w-1/2">
+          <input :id="itemType" v-model="selectedItemType" type="checkbox" :value="itemType" class="mr-3"
+            @change="selectItemValue">
+          <label :for="itemType">{{ itemType }}</label>
+        </li>
+      </ul>
+    </fieldset>
+  </div>
 </template>
 
-<script setup lang="ts">
-import {type PropType, ref} from "vue";
+<script setup lang="ts" generic="T">
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-const props = defineProps({
-  heading: {
-    type: String,
-    required: true
-  },
-  uniqueItems: {
-    type: [Set, Array<string>],
-    required: true
-  },
-  actions: {
-    type: Function as PropType<Function>,
-    required: true
-  }
-})
+import { useUserStore, CLEAR_USER_JOB_SELECTIONS } from "@/stores/user";
 
-import {CollapsibleAccordion} from "./index";
+const props = defineProps<{
 
-const selectedItemType = ref<string>([]);
+  uniqueItems: Set<string> | string[],
+  actions: Function
+}>()
+
+const selectedItemType = ref<string[]>([]);
 const router = useRouter();
+const userStore = useUserStore();
 
 const selectItemValue = () => {
   props.actions(selectedItemType.value);
-  router.push( { name: "JobResults"})
+  router.push({ name: "JobResults" })
 }
+
+userStore.$onAction(({ after, name }) => {
+  after(() => {
+    if (name === CLEAR_USER_JOB_SELECTIONS) {
+      selectedItemType.value = [];
+    }
+  })
+})
 </script>
