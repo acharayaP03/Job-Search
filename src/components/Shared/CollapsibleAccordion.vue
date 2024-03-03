@@ -1,12 +1,8 @@
 <template>
   <div class="border-b border-solid border-brand-gray-2 py-5">
-    <div
-        class="flex cursor-pointer flex-wrap items-center justify-between"
-        role="button"
-        @click="open"
-    >
+    <div class="flex cursor-pointer flex-wrap items-center justify-between" role="button" @click="open">
       <h3 class="text-base font-semibold">{{ heading }}</h3>
-      <font-awesome-icon :icon="caretIcon"/>
+      <font-awesome-icon :icon="caretIcon" />
     </div>
     <div v-if="isOpen" class="mt-5 w-full">
       <slot>
@@ -16,24 +12,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import {ref, computed, type PropType} from "vue";
-export default {
-  name: "CollapsibleAccordion",
-  props:{
-    heading: {
-      type: String as PropType<string>,
-      required: true
-    }
-  },
-  setup() {
-    const isOpen = ref(false);
+<script lang="ts" setup generic="T">
+import { ref, computed, type PropType } from "vue";
 
-    const caretIcon = computed(() => isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"])
+defineOptions({
+  name: "CollapsibleAccordion", inheritAttrs: false
+})
+const props = defineProps<{
+  heading: string
+}>();
 
-    const open = () => isOpen.value = !isOpen.value;
+const isOpen = ref(false);
 
-    return { isOpen, caretIcon, open }
-  }
-}
+const caretIcon = computed(() => isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"])
+const open = () => isOpen.value = !isOpen.value;
+
+
+
 </script>
