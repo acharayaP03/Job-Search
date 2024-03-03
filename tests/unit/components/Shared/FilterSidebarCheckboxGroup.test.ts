@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { useRouter } from "vue-router";
 import { createTestingPinia } from "@pinia/testing";
 import type { Mock } from "vitest";
+import { useUserStore } from "@/stores/user";
 
 vi.mock("vue-router");
 // const userRouterMock = useRouter() as Mock;
@@ -23,7 +24,8 @@ describe("FilterSideBarCheckboxGroup", () => {
     });
 
     const renderFilterSidebarCheckbox = (props: JobFilterSidebarCheckboxGroup) => {
-        const pinia = createTestingPinia();
+        const pinia = createTestingPinia({ stubActions: false });
+        const userStore = useUserStore();
 
         render(FilterSidebarCheckboxGroup, {
             props: {
@@ -31,11 +33,10 @@ describe("FilterSideBarCheckboxGroup", () => {
             },
             global: {
                 plugins: [pinia],
-                stubs: {
-                    FontAwesomeIcon: true
-                }
             }
         });
+
+        return { userStore };
     };
 
     it("renders unique list of values", async () => {
@@ -81,6 +82,38 @@ describe("FilterSideBarCheckboxGroup", () => {
             await userEvent.click(fullTimeCheckbox);
 
             expect(push).toHaveBeenCalledWith({ name: 'JobResults' })
+        })
+    })
+
+
+    describe("when user clicks on clear button", () => {
+        it("clears all selected checkboxes", async () => {
+
+            const props = createProps({
+                uniqueItems: new Set(["Full-time"]),
+            })
+            userRouterMock.mockReturnValue({ push: vi.fn() })
+            const { userStore } = renderFilterSidebarCheckbox(props)
+
+            const fullTimeCheckbox = screen.getByRole<HTMLInputElement>("checkbox", {
+                name: /full-time/i
+            });
+
+            await userEvent.click(fullTimeCheckbox);
+            expect(fullTimeCheckbox.checked).toBe(true);
+            userStore.CLEAR_USER_JOB_SELECTIONS();
+
+            const fullTimeCheckboxAfterAction = await screen.findByRole<HTMLInputElement>("checkbox", {
+                name: /full-time/i
+            });
+
+            expect(fullTimeCheckboxAfterAction.checked).toBe(false);
+
+            // const clearButton = screen.getByRole("button", {
+            //     name: /clear/i
+            // });
+
+            // await userEvent.click(clearButton);
         })
     })
 })
