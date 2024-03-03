@@ -47,6 +47,7 @@
     "tailwindcss": "^3.3.2",
     "typescript": "^5.1.5",
     "vite": "^4.1.4",
+    "vite-plugin-vue-devtools": "^7.0.16",
     "vitest": "^0.30.1"
   }
 }
