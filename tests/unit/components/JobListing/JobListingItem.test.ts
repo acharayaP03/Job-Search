@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/vue";
 import { RouterLinkStub } from "@vue/test-utils";
-import {JobListingItem} from "../../../../src/components/JobResults";
+import { JobListingItem } from "../../../../src/components/JobResults";
 import type { Job } from "@/api/types";
 
 import { createJob } from "../../../utility/createJob";
@@ -9,7 +9,7 @@ describe("JobListing", () => {
 
     const renderJobListingItem = (job: Job) => {
         render(JobListingItem, {
-            global : {
+            global: {
                 stubs: {
                     "router-link": RouterLinkStub
                 }
@@ -19,27 +19,16 @@ describe("JobListing", () => {
                     ...job
                 }
             },
-            computed: {
-                title() {
-                    return this.job.title;
-                },
-                organization() {
-                    return this.job.organization
-                },
-                getJobUrl() {
-                    return `/jobs/results/${this.job.id}`
-                },
-            }
         })
     }
     it("renders job title", () => {
-        const jobProps = createJob({ title: "VueJs Developer"})
+        const jobProps = createJob({ title: "Angular Developer" })
         renderJobListingItem(jobProps)
         expect(screen.getByText("VueJs Developer")).toBeInTheDocument()
     })
 
     it("renders job organization", () => {
-        const jobProps = createJob({ organization: "Trishten Tech"})
+        const jobProps = createJob({ organization: "Trishten Tech" })
         renderJobListingItem(jobProps)
         expect(screen.getByText("Trishten Tech")).toBeInTheDocument()
     })
