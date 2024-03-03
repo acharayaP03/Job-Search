@@ -5,11 +5,13 @@
     </template>
 
     <template #subtitle>
-      <h2 class="my-4 w-full text-base font-light">Its awesome working here. Why don't you come join us</h2>
+      <h2 class="my-4 w-full text-base font-light"
+        >Its awesome working here. Why don't you come join us</h2
+      >
     </template>
   </header-container>
 </template>
 
 <script lang="ts" setup>
-import {HeaderContainer} from "../components/Shared";
+import {HeaderContainer} from '../components/Shared'
 </script>

@@ -13,20 +13,18 @@
 </template>
 
 <script lang="ts" setup generic="T">
-import { ref, computed, type PropType } from "vue";
+import { ref, computed } from 'vue'
 
 defineOptions({
-  name: "CollapsibleAccordion", inheritAttrs: false
+  name: 'CollapsibleAccordion',
+  inheritAttrs: false
 })
 const props = defineProps<{
   heading: string
-}>();
+}>()
 
-const isOpen = ref(false);
+const isOpen = ref(false)
 
-const caretIcon = computed(() => isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"])
-const open = () => isOpen.value = !isOpen.value;
-
-
-
+const caretIcon = computed(() => (isOpen.value ? ['fas', 'angle-up'] : ['fas', 'angle-down']))
+const open = () => (isOpen.value = !isOpen.value)
 </script>
