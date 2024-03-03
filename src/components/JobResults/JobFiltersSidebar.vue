@@ -4,13 +4,21 @@
       <div class="flex flex-row justify-between">
         <h3 class="my-4 text-base font-semibold">What do you want to do?</h3>
         <div class="flex items-center text-sm">
-          <action-button text="Clear Filters" button-type="secondary" />
+          <action-button text="Clear Filters" button-type="secondary" @click="userStore.CLEAR_USER_JOB_SELECTIONS" />
         </div>
       </div>
-      <filter-sidebar-checkbox-group heading="Degree" :unique-items="UNIQUE_DEGREES" :actions="userStore.ADD_SELECTED_DEGREE_TYPE"/>
+      <CollapsibleAccordion heading="Degree">
+        <FilterSidebarCheckboxGroup :unique-items="UNIQUE_DEGREES" :actions="userStore.ADD_SELECTED_DEGREE_TYPE" />
+      </CollapsibleAccordion>
 
-      <filter-sidebar-checkbox-group heading="Job Types" :unique-items="UNIQUE_JOB_TYPES" :actions="userStore.ADD_SELECTED_JOB_TYPES"/>
-      <filter-sidebar-checkbox-group heading="Organizations" :unique-items="UNIQUE_ORGANIZATIONS" :actions="userStore.ADD_SELECTED_ORGANIZATIONS"/>
+      <CollapsibleAccordion heading="Job Types">
+        <FilterSidebarCheckboxGroup :unique-items="UNIQUE_JOB_TYPES" :actions="userStore.ADD_SELECTED_JOB_TYPES" />
+      </CollapsibleAccordion>
+
+      <CollapsibleAccordion heading="Organizations">
+        <FilterSidebarCheckboxGroup :unique-items="UNIQUE_ORGANIZATIONS"
+          :actions="userStore.ADD_SELECTED_ORGANIZATIONS" />
+      </CollapsibleAccordion>
     </section>
   </div>
 </template>

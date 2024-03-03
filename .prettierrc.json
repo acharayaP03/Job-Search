@@ -8,5 +8,6 @@
   "bracketSpacing": false,
   "editorconfig": true,
   "jsxSingleQuote": true,
-  "htmlWhitespaceSensitivity": "strict"
+  "htmlWhitespaceSensitivity": "strict",
+  "useTabs": false
 }
