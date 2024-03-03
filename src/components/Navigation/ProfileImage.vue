@@ -1,9 +1,13 @@
 <template>
-  <img :src="imageLink" alt="Profile image" class="h-10 w-10 rounded-3xl border-2 border-brand-blue-1 object-contain" />
+  <img
+    :src="imageLink"
+    alt="Profile image"
+    class="h-10 w-10 rounded-3xl border-2 border-brand-blue-1 object-contain"
+  />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import {defineComponent} from 'vue'
 interface Data {
   imageLink: string
 }

@@ -3,13 +3,13 @@
 </template>
 
 <script setup lang="ts">
-import {computed, toRefs} from "vue";
+import {computed, toRefs} from 'vue'
 const props = defineProps({
   text: {
     type: String,
     required: true
   },
-  primary:{
+  primary: {
     type: Boolean,
     default: false
   },
@@ -20,30 +20,29 @@ const props = defineProps({
   buttonType: {
     type: String,
     required: false,
-    default: "primary",
+    default: 'primary',
     validator(value: string) {
-      return ["primary", "secondary"].includes(value)
+      return ['primary', 'secondary'].includes(value)
     }
   }
 })
-  const { primary, secondary, buttonType } = toRefs(props)
-  const buttonClass = computed(() => {
-    return{
-      primary: primary.value,
-      secondary: secondary.value,
-      [buttonType.value] : true
-    }
-  });
-
+const {primary, secondary, buttonType} = toRefs(props)
+const buttonClass = computed(() => {
+  return {
+    primary: primary.value,
+    secondary: secondary.value,
+    [buttonType.value]: true
+  }
+})
 </script>
 
 <style scoped>
 button {
-  @apply  px-5 py-3 font-medium;
+  @apply px-5 py-3 font-medium;
 }
 
 .primary {
-  @apply rounded bg-brand-blue-1 text-white hover:shadow-blue
+  @apply rounded bg-brand-blue-1 text-white hover:shadow-blue;
 }
 
 .secondary {

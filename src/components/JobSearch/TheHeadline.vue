@@ -2,19 +2,19 @@
   <section class="mb-16">
     <h1 class="mb-14 text-8xl font-bold tracking-tighter">
       <span :class="actionClasses">{{ action }}</span>
-      <br>
-      for everyone</h1>
+      <br />
+      for everyone</h1
+    >
     <h2 class="text-3xl font-light">Find your next job at Trishten Tech</h2>
   </section>
 </template>
 
 <script setup lang="ts">
-import {computed, onBeforeUnmount, onMounted, ref} from 'vue';
-import nextElementInList from "../../utils/nextElementInList";
+import {computed, onBeforeUnmount, onMounted, ref} from 'vue'
+import nextElementInList from '../../utils/nextElementInList'
 
-const action = ref("Build");
-const interval = ref<NodeJS.Timer>();
-
+const action = ref('Build')
+const interval = ref<NodeJS.Timer>()
 
 const actionClasses = computed(() => {
   return {
@@ -23,13 +23,13 @@ const actionClasses = computed(() => {
 })
 
 const changeTitle = () => {
-  interval.value = setInterval(() =>{
-    const actions = ["Build", "Create", "Design", "Code"];
+  interval.value = setInterval(() => {
+    const actions = ['Build', 'Create', 'Design', 'Code']
     action.value = nextElementInList(actions, action.value)
   }, 3000)
-};
+}
 
-onMounted(changeTitle);
+onMounted(changeTitle)
 onBeforeUnmount(() => clearInterval(interval.value))
 </script>
 
@@ -47,6 +47,6 @@ onBeforeUnmount(() => clearInterval(interval.value))
 }
 
 .code {
-  color: #d93025
+  color: #d93025;
 }
 </style>

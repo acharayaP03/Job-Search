@@ -2,13 +2,15 @@
   <header :class="[headerHeightClass, 'w-full', 'text-sm']">
     <div class="fixed left-0 top-0 h-16 w-full bg-white">
       <div class="mx-auto flex h-full flex-nowrap border-b border-solid border-brand-gray-1 px-8">
-        <router-link :to="{ name: 'Home' }" class="flex h-full items-center text-xl">Devs Finder</router-link>
+        <router-link :to="{name: 'Home'}" class="flex h-full items-center text-xl"
+          >Devs Finder</router-link
+        >
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none">
             <li v-for="menu in menuItems" :key="menu.text" class="ml-9 h-full first:ml-0">
               <router-link :to="menu.url" class="flex h-full items-center py-2.5">{{
-    menu.text
-  }}</router-link>
+                menu.text
+              }}</router-link>
             </li>
           </ul>
         </nav>
@@ -23,20 +25,20 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/stores/user'
+import {useUserStore} from '@/stores/user'
 import ActionButton from '@/components/Shared/ActionButton.vue'
 import ProfileImage from './ProfileImage.vue'
 import TheSubNavigation from './TheSubNavigation.vue'
-import { ref, computed } from 'vue'
+import {ref, computed} from 'vue'
 
 const url = ref('https://careers.gooogle.com')
 const menuItems = ref([
-  { text: 'Teams', url: '/teamview' },
-  { text: 'Locations', url: '/' },
-  { text: 'Life at Trishten Tech', url: '/' },
-  { text: 'How we hire', url: '/' },
-  { text: 'Students', url: '/' },
-  { text: 'Jobs', url: '/jobs/results' }
+  {text: 'Teams', url: '/teamview'},
+  {text: 'Locations', url: '/'},
+  {text: 'Life at Trishten Tech', url: '/'},
+  {text: 'How we hire', url: '/'},
+  {text: 'Students', url: '/'},
+  {text: 'Jobs', url: '/jobs/results'}
 ])
 
 const userStore = useUserStore()
