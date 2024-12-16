@@ -13,11 +13,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  test: {
-    globals: true,
-    setupFiles: ['./tests/setup.ts']
-  },
   server: {
     port: 8080
-  }
+  },
 })
