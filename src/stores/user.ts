@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
-import { reactive, ref, toRefs } from 'vue'
+import {defineStore} from 'pinia'
+import {reactive, ref, toRefs} from 'vue'
 
 export const ADD_SELECTED_ORGANIZATIONS = 'ADD_SELECTED_ORGANIZATIONS'
 export const ADD_SELECTED_JOB_TYPES = 'ADD_SELECTED_JOB_TYPES'
@@ -12,8 +12,6 @@ export interface UserState {
   selectedDegreeType: string[]
 }
 
-
-
 export const useUserStore = defineStore('user', () => {
   const state: UserState = reactive({
     isLoggedIn: false,
@@ -22,7 +20,7 @@ export const useUserStore = defineStore('user', () => {
     selectedDegreeType: []
   })
 
-  const { isLoggedIn, selectedOrganizations, selectedJobTypes, selectedDegreeType } = toRefs(state)
+  const {isLoggedIn, selectedOrganizations, selectedJobTypes, selectedDegreeType} = toRefs(state)
 
   const LOGIN_USER = () => {
     state.isLoggedIn = true
